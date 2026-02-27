@@ -1,69 +1,63 @@
-*::before,
-*::after {
-    box-sizing: border-box;
-}
-
-
-
 body {
-    display: grid;
     margin: 0;
     background: linear-gradient(to right, #611919, #BE32AB);
-    
     height: 100vh;
+    width: 100vw;
     place-items: center;
-}
-
-.calculator {
-    display: grid;
-   
-    grid-template-columns: repeat(4, 6rem);
-    grid-template-rows: minmax(7rem, auto) repeat(5, 6rem);
-    justify-content: center;
-    gap: 12px;
-
-
-}
-
-.span-two {
-    grid-column: span 2;
-}
-
-.display {
-    grid-column: span 4;
-    background-color: rgba(0, 0, 0, 0.75);
-    margin: 8px;
-    height: 160px;
-}
-
-.equa {
-    color: white;
-    font-size: 1.5rem;
-}
-
-.result {
-    color: rgba(255, 255, 255, 0.75);
-    font-size: 2.5rem;
-}
-
-.outerbox {
-    
-    justify-content: center;
-    padding: 8px;
-
-    background: #D9D9D9;
-}
-
-.outerbox>* {
-    background: #D9D9D9;
+    align-items: center;
 }
 
 
-button{
-    
-    background-color: #CEC3C3;
+.side-panel {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 250px;
+    height: 100vh;
+    background-color: #f0f0f0;
+    padding: 10px;
+    z-index: 1000;
+}
 
-    border: none;
+.history {
+    font-family: "Segoe UI", Arial, sans-serif;
+    font-size: 2rem;
+    padding: 15px;
+    background-color: rgb(255, 255, 255);
+    border-radius: 8px;
+    box-shadow: rgba(0, 0, 0, 0.1) 0px 2px 4px;
+   text-align: center;
+}
 
-    font-size: 32px;
+.open{
+  animation-name: sidebar-open;
+  animation-duration: 0.5s;
+  left: 0;
+}
+
+.close{
+  animation-name: sidebar-close;
+  animation-duration: 0.5s;
+  left: -400px;
+}
+
+
+@keyframes sidebar-open {
+  0% {
+    left: -400px;
+  }
+  
+  100% {
+    left: 0;
+  }
+}
+
+@keyframes sidebar-close {
+  0% {
+    left: 0;
+  }
+  
+  100% {
+    left: -400px;
+  }
 }
