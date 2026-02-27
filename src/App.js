@@ -1,19 +1,32 @@
 import './App.css';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 
 function App() {
 
   const [equation, SetEquation] = useState('');
   const [result, SetResult] = useState('');
-
+  const [memory, setMemory] = useState([]);
+  const operators = ["-", "+", "/", "*"];
 
   const onButtonClick = (val) => {
-    console.log(`clicked Btn Value - ${val}`);
 
-    SetEquation(equation + val);
-    console.log(`equation - ${equation}`);
+    SetEquation((prev) => {
+      if (!prev) return val;
+
+      const lastChar = prev[prev.length - 1];
+
+      if (operators.includes(lastChar) && operators.includes(val)) {
+        return prev.slice(0, -1) + val;
+      }
+
+      return prev + val;
+    });
 
   };
+
+  useEffect(() => {
+    console.log(memory);
+  }, [memory])
 
 
 
@@ -26,12 +39,37 @@ function App() {
 
     SetResult(calculateArray(convertedEquationTokens));
 
+    let result = calculateArray(convertedEquationTokens);
+    console.log(result);
+
+    var obj = {
+      'equation': equation,
+      'result': result,
+      'time': Date()
+    }
+
+    setMemory(preItem => [...preItem, obj]);
+
+
+
+
 
   }
 
 
   const onDelete = () => {
     SetEquation(equation.slice(0, -1));
+  }
+
+
+  const clearAll = () => {
+    SetEquation('');
+    SetResult('');
+  }
+
+
+  const onMemory = () => {
+    
   }
 
   const parseEquation = (x) => {
@@ -75,38 +113,48 @@ function App() {
 
 
   return (
-    <div className='calculator'>
-      
-      
-      
-        <div className='display'>
-          <h3>{equation}</h3>
-          <h1>{result}</h1>
+    <>
+
+    
+      <div className='outerbox'>
+        <div className='calculator'>
+
+
+
+          <div className='display'>
+            <h3 className='equa'>{equation}</h3>
+            <h1 className='result'>{result}</h1>
+          </div>
+
+
+
+
+          <button onClick={onMemory}>MR</button>
+          <button onClick={onDelete}>Del</button>
+          <button onClick={clearAll}>AC</button>
+          <button onClick={() => onButtonClick('/')}>÷</button>
+          <button onClick={() => onButtonClick('7')}>7</button>
+          <button onClick={() => onButtonClick('8')}>8</button>
+          <button onClick={() => onButtonClick('9')}>9</button>
+          <button onClick={() => onButtonClick('*')}>*</button>
+          <button onClick={() => onButtonClick('4')}>4</button>
+          <button onClick={() => onButtonClick('5')}>5</button>
+          <button onClick={() => onButtonClick('6')}>6</button>
+          <button onClick={() => onButtonClick('-')}>-</button>
+          <button onClick={() => onButtonClick('1')}>1</button>
+          <button onClick={() => onButtonClick('2')}>2</button>
+          <button onClick={() => onButtonClick('3')}>3</button>
+          <button onClick={() => onButtonClick('+')}>+</button>
+          <button onClick={() => onButtonClick('0')}>0</button>
+          <button onClick={() => onButtonClick('.')}>.</button>
+          <button className='span-two' onClick={onPressedEqual}>=</button>
+
         </div>
-      
+      </div>
 
 
+    </>
 
-      <button>MR</button>
-      <button className='span-two' onClick={onDelete}>Del</button>
-      <button onClick={() => onButtonClick('/')}>÷</button>
-      <button onClick={() => onButtonClick('7')}>7</button>
-      <button onClick={() => onButtonClick('8')}>8</button>
-      <button onClick={() => onButtonClick('9')}>9</button>
-      <button onClick={() => onButtonClick('*')}>*</button>
-      <button onClick={() => onButtonClick('4')}>4</button>
-      <button onClick={() => onButtonClick('5')}>5</button>
-      <button onClick={() => onButtonClick('6')}>6</button>
-      <button onClick={() => onButtonClick('-')}>-</button>
-      <button onClick={() => onButtonClick('1')}>1</button>
-      <button onClick={() => onButtonClick('2')}>2</button>
-      <button onClick={() => onButtonClick('3')}>3</button>
-      <button onClick={() => onButtonClick('+')}>+</button>
-      <button onClick={() => onButtonClick('0')}>0</button>
-      <button onClick={() => onButtonClick('.')}>.</button>
-      <button className='span-two' onClick={onPressedEqual}>=</button>
-
-    </div>
   );
 }
 

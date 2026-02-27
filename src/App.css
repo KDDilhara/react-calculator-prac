@@ -6,17 +6,21 @@
 
 
 body {
+    display: grid;
     margin: 0;
-    background: linear-gradient(to right, #611919,#BE32AB);
+    background: linear-gradient(to right, #611919, #BE32AB);
+    
     height: 100vh;
+    place-items: center;
 }
 
 .calculator {
     display: grid;
-    margin: 2rem;
+   
     grid-template-columns: repeat(4, 6rem);
     grid-template-rows: minmax(7rem, auto) repeat(5, 6rem);
     justify-content: center;
+    gap: 12px;
 
 
 }
@@ -26,8 +30,40 @@ body {
 }
 
 .display {
-    grid-column:span 4;
-    background-color:rgb(207, 205, 205);
+    grid-column: span 4;
+    background-color: rgba(0, 0, 0, 0.75);
+    margin: 8px;
+    height: 160px;
+}
+
+.equa {
+    color: white;
+    font-size: 1.5rem;
+}
+
+.result {
+    color: rgba(255, 255, 255, 0.75);
+    font-size: 2.5rem;
+}
+
+.outerbox {
     
+    justify-content: center;
+    padding: 8px;
+
+    background: #D9D9D9;
+}
+
+.outerbox>* {
+    background: #D9D9D9;
+}
+
+
+button{
     
+    background-color: #CEC3C3;
+
+    border: none;
+
+    font-size: 32px;
 }
